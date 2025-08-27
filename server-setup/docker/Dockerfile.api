@@ -1,0 +1,39 @@
+FROM python:3.11-alpine
+
+# Установка системных зависимостей
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    linux-headers \
+    wireguard-tools \
+    iptables \
+    curl
+
+# Создание рабочей директории
+WORKDIR /app
+
+# Копирование requirements
+COPY requirements.txt .
+
+# Установка Python зависимостей
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копирование исходного кода
+COPY api/ .
+
+# Создание непривилегированного пользователя
+RUN adduser -D -s /bin/sh apiuser && \
+    chown -R apiuser:apiuser /app
+
+# Переключение на непривилегированного пользователя
+USER apiuser
+
+# Открытие порта
+EXPOSE 5000
+
+# Переменные окружения
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
+
+# Команда запуска
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]
