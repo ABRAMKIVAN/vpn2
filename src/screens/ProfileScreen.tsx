@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LineChart } from 'react-native-chart-kit';
+// import { LineChart } from 'react-native-chart-kit';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from '../hooks/useTheme';
 import { useAuth } from '../hooks/useAuth';
@@ -205,14 +205,11 @@ export default function ProfileScreen() {
           </View>
           
           {showUsageChart ? (
-            <LineChart
-              data={usageChartData}
-              width={width - 80}
-              height={200}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
+            <View style={[styles.chart, { height: 200, justifyContent: 'center', alignItems: 'center' }]}>
+              <Text style={[{ color: colors.textSecondary }]}>
+                График использования (демо)
+              </Text>
+            </View>
           ) : (
             <View style={styles.detailsList}>
               <View style={styles.detailItem}>
