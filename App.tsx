@@ -19,8 +19,7 @@ import { ThemeProvider } from './src/hooks/useTheme';
 import { VPNProvider } from './src/hooks/useVPN';
 import { AuthProvider } from './src/hooks/useAuth';
 
-// Импорт стилей
-import './global.css';
+// Removed Tailwind CSS import
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

@@ -35,13 +35,9 @@
       ]
     },
     "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/favicon.png"
+      "bundler": "metro"
     },
-    "plugins": [
-      "expo-router"
-    ],
+    "plugins": [],
     "scheme": "securevpn"
   }
 }
