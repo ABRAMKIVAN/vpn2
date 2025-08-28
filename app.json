@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "SecureVPN",
+    "slug": "secure-vpn-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.securevpn.app",
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "com.securevpn.app",
+      "versionCode": 1
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [],
+    "scheme": "securevpn"
+  }
+}

@@ -1,0 +1,227 @@
+version: '3.8'
+
+services:
+  # WireGuard сервер
+  wireguard:
+    image: linuxserver/wireguard:latest
+    container_name: securevpn-wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+      - SERVERURL=${SERVER_IP}
+      - SERVERPORT=51820
+      - PEERS=10
+      - PEERDNS=10.13.13.1
+      - INTERNAL_SUBNET=10.13.13.0
+      - ALLOWEDIPS=0.0.0.0/0
+    volumes:
+      - ./wireguard-config:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - "51820:51820/udp"
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # ShadowSocks сервер
+  shadowsocks:
+    image: shadowsocks/shadowsocks-libev:latest
+    container_name: securevpn-shadowsocks
+    environment:
+      - METHOD=chacha20-ietf-poly1305
+      - PASSWORD=${SS_PASSWORD}
+    ports:
+      - "8388:8388"
+    command: ss-server -s 0.0.0.0 -p 8388 -m chacha20-ietf-poly1305 -k ${SS_PASSWORD} --fast-open
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # Xray для VLESS+Reality
+  xray:
+    image: teddysun/xray:latest
+    container_name: securevpn-xray
+    volumes:
+      - ./xray-config:/etc/xray
+    ports:
+      - "443:443"
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # Pi-hole для DNS защиты
+  pihole:
+    image: pihole/pihole:latest
+    container_name: securevpn-pihole
+    environment:
+      - TZ=Europe/Moscow
+      - WEBPASSWORD=${PIHOLE_PASSWORD}
+      - PIHOLE_DNS_=1.1.1.1;9.9.9.9
+      - DNSMASQ_LISTENING=all
+    volumes:
+      - ./pihole-config/etc:/etc/pihole
+      - ./pihole-config/dnsmasq:/etc/dnsmasq.d
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"  # Веб-интерфейс Pi-hole
+    restart: unless-stopped
+    networks:
+      vpn-network:
+        ipv4_address: 10.13.13.1
+
+  # Nginx для веб-интерфейса и SSL
+  nginx:
+    image: nginx:alpine
+    container_name: securevpn-nginx
+    volumes:
+      - ./nginx-config:/etc/nginx/conf.d
+      - ./ssl-certs:/etc/ssl/certs
+      - ./web:/var/www/html
+    ports:
+      - "8080:80"
+      - "8443:443"
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # API для управления VPN
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: securevpn-api
+    environment:
+      - SERVER_IP=${SERVER_IP}
+      - FLASK_ENV=production
+    volumes:
+      - ./wireguard-config:/etc/wireguard
+      - ./api-data:/app/data
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # Redis для кэширования и сессий
+  redis:
+    image: redis:alpine
+    container_name: securevpn-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - ./redis-data:/data
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # PostgreSQL для хранения данных пользователей
+  postgres:
+    image: postgres:15-alpine
+    container_name: securevpn-postgres
+    environment:
+      - POSTGRES_DB=securevpn
+      - POSTGRES_USER=vpnuser
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./sql-init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # Prometheus для мониторинга
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: securevpn-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./prometheus-config:/etc/prometheus
+      - ./prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # Grafana для дашбордов
+  grafana:
+    image: grafana/grafana:latest
+    container_name: securevpn-grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+    volumes:
+      - ./grafana-data:/var/lib/grafana
+      - ./grafana-config:/etc/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # Node Exporter для метрик системы
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: securevpn-node-exporter
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    ports:
+      - "9100:9100"
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+  # Fail2Ban для защиты от брут-форса
+  fail2ban:
+    image: crazymax/fail2ban:latest
+    container_name: securevpn-fail2ban
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./fail2ban-config:/etc/fail2ban
+      - /var/log:/var/log:ro
+    restart: unless-stopped
+
+networks:
+  vpn-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.13.13.0/24
+
+volumes:
+  wireguard-config:
+  pihole-config:
+  nginx-config:
+  ssl-certs:
+  web:
+  api-data:
+  redis-data:
+  postgres-data:
+  prometheus-data:
+  grafana-data:

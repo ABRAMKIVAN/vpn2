@@ -1,0 +1,40 @@
+module.exports = {
+  extends: [
+    'expo',
+    '@react-native-community',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+  ],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'react', 'react-native'],
+  rules: {
+    'react-native/no-unused-styles': 'error',
+    'react-native/split-platform-components': 'error',
+    'react-native/no-inline-styles': 'warn',
+    'react-native/no-color-literals': 'warn',
+    'react-native/no-raw-text': 'error',
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'prettier/prettier': ['error', {
+      singleQuote: true,
+      trailingComma: 'es5',
+      tabWidth: 2,
+      semi: true,
+    }],
+  },
+  env: {
+    'react-native/react-native': true,
+    jest: true,
+  },
+  ignorePatterns: [
+    'node_modules/',
+    'android/',
+    'ios/',
+    'web-build/',
+    '.expo/',
+  ],
+};

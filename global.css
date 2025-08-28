@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Глобальные стили для нейморфного дизайна */
+.neomorph-light {
+  box-shadow: 6px 6px 12px #d1d1d1, -6px -6px 12px #ffffff;
+}
+
+.neomorph-dark {
+  box-shadow: 6px 6px 12px #0a0a0a, -6px -6px 12px #2a2a2a;
+}
+
+.neomorph-inset-light {
+  box-shadow: inset 6px 6px 12px #d1d1d1, inset -6px -6px 12px #ffffff;
+}
+
+.neomorph-inset-dark {
+  box-shadow: inset 6px 6px 12px #0a0a0a, inset -6px -6px 12px #2a2a2a;
+}
