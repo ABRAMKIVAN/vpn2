@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 SecureVPN - Быстрое VPN приложение</title>
+    <title>🔒 SecureVPN - Быстрое VPN приложение</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,10 +12,20 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --google-blue: #1a73e8;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc04;
+            --google-green: #34a853;
+            --nothing-orange: #ff6b35;
+            --nothing-black: #000000;
+            --nothing-dark: #1a1a1a;
+            --nothing-gray: #2a2a2a;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            transition: all 0.5s ease;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -22,182 +33,414 @@
             padding: 20px;
         }
 
+        /* Google Theme */
+        body.google-theme {
+            background: #f8f9fa;
+            color: #202124;
+        }
+
+        /* Nothing Theme */
+        body.nothing-theme {
+            background: var(--nothing-black);
+            color: #ffffff;
+        }
+
         .container {
-            max-width: 400px;
+            max-width: 480px;
             width: 100%;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: white;
+            border-radius: 24px;
+            padding: 48px 32px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        /* Nothing Theme Container */
+        .nothing-theme .container {
+            background: var(--nothing-dark);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--nothing-gray);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+        }
+
+        .nothing-theme .container::before {
+            background: linear-gradient(90deg, var(--nothing-orange), #ff8c42, #ffa366);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            background: #f1f3f4;
             border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .nothing-theme .theme-toggle {
+            background: var(--nothing-gray);
+        }
+
+        .theme-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 16px;
+            background: transparent;
+            color: #5f6368;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-btn.active {
+            background: white;
+            color: #202124;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nothing-theme .theme-btn.active {
+            background: var(--nothing-black);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .logo {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 56px;
+            margin-bottom: 24px;
+            text-align: center;
         }
 
         .title {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #ffffff, #e0e7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 36px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #202124;
+            letter-spacing: -0.5px;
+        }
+
+        .nothing-theme .title {
+            color: white;
         }
 
         .subtitle {
             font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 30px;
+            color: #5f6368;
+            text-align: center;
+            margin-bottom: 32px;
+            font-weight: 400;
         }
 
-        .features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 30px;
+        .nothing-theme .subtitle {
+            color: #9aa0a6;
         }
 
-        .features li {
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
+        .status-card {
+            background: #e8f0fe;
+            border: 1px solid #d2e3fc;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .features li::before {
-            content: "✅";
-            position: absolute;
-            left: 0;
+        .nothing-theme .status-card {
+            background: var(--nothing-gray);
+            border: 1px solid #404040;
         }
 
-        .status {
-            background: rgba(0, 123, 255, 0.2);
-            border: 1px solid rgba(0, 123, 255, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .pulse-button {
-            background: linear-gradient(45deg, #007bff, #0056b3);
-            border: none;
-            border-radius: 50px;
-            width: 120px;
-            height: 120px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 20px auto;
-            display: block;
-            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
-            transition: all 0.3s ease;
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--google-green);
             animation: pulse 2s infinite;
         }
 
-        .pulse-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.4);
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3); }
-            50% { box-shadow: 0 10px 30px rgba(0, 123, 255, 0.6); }
-            100% { box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3); }
+        .status-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .nothing-theme .status-text {
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .feature-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #e8eaed;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nothing-theme .feature-item {
+            background: var(--nothing-gray);
+            border: 1px solid #404040;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .feature-text {
+            font-size: 12px;
+            color: #5f6368;
+            font-weight: 500;
+        }
+
+        .nothing-theme .feature-text {
+            color: #9aa0a6;
+        }
+
+        .connect-button {
+            width: 100%;
+            background: var(--google-blue);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connect-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        .connect-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .connect-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(26, 115, 232, 0.3);
+        }
+
+        .nothing-theme .connect-button {
+            background: var(--nothing-orange);
+        }
+
+        .nothing-theme .connect-button:hover {
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
         }
 
         .instructions {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 30px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 24px;
             font-size: 14px;
+            border: 1px solid #e8eaed;
+        }
+
+        .nothing-theme .instructions {
+            background: var(--nothing-gray);
+            border: 1px solid #404040;
         }
 
         .instructions h3 {
-            margin-bottom: 10px;
-            color: #ffd700;
+            color: #202124;
+            margin-bottom: 16px;
+            font-weight: 500;
         }
 
-        .code {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            margin: 5px 0;
+        .nothing-theme .instructions h3 {
+            color: white;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 8px 0;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: var(--google-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 12px;
+            font-weight: 500;
         }
 
-        .warning {
-            background: rgba(255, 193, 7, 0.2);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
+        .nothing-theme .step-number {
+            background: var(--nothing-orange);
         }
 
-        .warning strong {
-            color: #ffd700;
+        .step-text {
+            color: #5f6368;
+            font-size: 13px;
+        }
+
+        .nothing-theme .step-text {
+            color: #9aa0a6;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #9aa0a6;
+        }
+
+        .nothing-theme .footer {
+            color: #808080;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 32px 24px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
         }
     </style>
 </head>
-<body>
+<body class="google-theme">
     <div class="container">
-        <div class="logo">🚀</div>
+        <div class="theme-toggle">
+            <button class="theme-btn active" onclick="setTheme('google')">Google</button>
+            <button class="theme-btn" onclick="setTheme('nothing')">Nothing</button>
+        </div>
+
+        <div class="logo">🔒</div>
         <h1 class="title">SecureVPN</h1>
         <p class="subtitle">Быстрое • Безопасное • Приватное</p>
 
-        <div class="status">
-            <strong>Статус:</strong> Metro Bundler запущен на порту 8081
+        <div class="status-card">
+            <div class="status-dot"></div>
+            <div class="status-text">Metro Bundler активен</div>
         </div>
 
-        <ul class="features">
-            <li>Соединение одним нажатием</li>
-            <li>8 серверов по всему миру</li>
-            <li>Скорость до 500 Mbps</li>
-            <li>WireGuard, ShadowSocks, VLESS</li>
-            <li>Темная и светлая тема</li>
-            <li>Уведомления в реальном времени</li>
-        </ul>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-text">500 Mbps</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🌍</div>
+                <div class="feature-text">8 серверов</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-text">WireGuard</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎨</div>
+                <div class="feature-text">Две темы</div>
+            </div>
+        </div>
 
-        <button class="pulse-button" onclick="tryOpenApp()">
-            Запустить VPN
+        <button class="connect-button" onclick="launchApp()">
+            🚀 Запустить приложение
         </button>
 
         <div class="instructions">
-            <h3>🚀 Как запустить приложение:</h3>
-            <div class="code">1. npm start (уже запущено)</div>
-            <div class="code">2. Открыть в браузере: localhost:8081</div>
-            <div class="code">3. Или использовать: npm run android/ios</div>
+            <h3>📋 Как использовать:</h3>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-text">Нажмите "Запустить приложение"</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-text">Откройте localhost:8081 в новой вкладке</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-text">Наслаждайтесь VPN с Material Design</div>
+            </div>
         </div>
 
-        <div class="warning">
-            <strong>💡 Для полной версии:</strong><br>
-            Используйте Android Studio или Xcode для мобильной версии с полным функционалом
+        <div class="footer">
+            Made with ❤️ in the style of Google & Nothing
         </div>
     </div>
 
     <script>
-        function tryOpenApp() {
-            // Пытаемся открыть приложение в новой вкладке
-            window.open('http://localhost:8081', '_blank');
-
-            // Также показываем инструкции
-            alert('Откройте: http://localhost:8081 в новой вкладке браузера');
+        function setTheme(theme) {
+            document.body.className = theme + '-theme';
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
         }
 
-        // Автоматическая проверка статуса Metro
+        function launchApp() {
+            window.open('http://localhost:8081', '_blank');
+        }
+
+        // Auto-check Metro status
         setInterval(() => {
             fetch('http://localhost:8081/status')
                 .then(() => {
-                    document.querySelector('.status').innerHTML = '<strong>Статус:</strong> ✅ Metro Bundler работает';
+                    document.querySelector('.status-dot').style.background = '#34a853';
+                    document.querySelector('.status-text').textContent = 'Metro Bundler активен';
                 })
                 .catch(() => {
-                    document.querySelector('.status').innerHTML = '<strong>Статус:</strong> ❌ Metro Bundler не отвечает';
+                    document.querySelector('.status-dot').style.background = '#ea4335';
+                    document.querySelector('.status-text').textContent = 'Metro Bundler не отвечает';
                 });
-        }, 5000);
+        }, 3000);
     </script>
 </body>
 </html>
