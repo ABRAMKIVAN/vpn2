@@ -1,54 +1,203 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecureVPN - High-Performance VPN App</title>
+    <title>🚀 SecureVPN - Быстрое VPN приложение</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
+            box-sizing: border-box;
         }
 
-        #root {
-            width: 100vw;
-            height: 100vh;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
-        .loading {
+        .container {
+            max-width: 400px;
+            width: 100%;
             text-align: center;
-            font-size: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
-        .loading-spinner {
-            border: 4px solid #333;
-            border-top: 4px solid #007bff;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+        .logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .features li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .features li::before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+
+        .status {
+            background: rgba(0, 123, 255, 0.2);
+            border: 1px solid rgba(0, 123, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .pulse-button {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border: none;
+            border-radius: 50px;
+            width: 120px;
+            height: 120px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
             margin: 20px auto;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .pulse-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.4);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3); }
+            50% { box-shadow: 0 10px 30px rgba(0, 123, 255, 0.6); }
+            100% { box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3); }
+        }
+
+        .instructions {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 5px 0;
+            font-size: 12px;
+        }
+
+        .warning {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .warning strong {
+            color: #ffd700;
         }
     </style>
 </head>
 <body>
-    <div id="root">
-        <div class="loading">
-            <div class="loading-spinner"></div>
-            <p>Loading SecureVPN...</p>
+    <div class="container">
+        <div class="logo">🚀</div>
+        <h1 class="title">SecureVPN</h1>
+        <p class="subtitle">Быстрое • Безопасное • Приватное</p>
+
+        <div class="status">
+            <strong>Статус:</strong> Metro Bundler запущен на порту 8081
+        </div>
+
+        <ul class="features">
+            <li>Соединение одним нажатием</li>
+            <li>8 серверов по всему миру</li>
+            <li>Скорость до 500 Mbps</li>
+            <li>WireGuard, ShadowSocks, VLESS</li>
+            <li>Темная и светлая тема</li>
+            <li>Уведомления в реальном времени</li>
+        </ul>
+
+        <button class="pulse-button" onclick="tryOpenApp()">
+            Запустить VPN
+        </button>
+
+        <div class="instructions">
+            <h3>🚀 Как запустить приложение:</h3>
+            <div class="code">1. npm start (уже запущено)</div>
+            <div class="code">2. Открыть в браузере: localhost:8081</div>
+            <div class="code">3. Или использовать: npm run android/ios</div>
+        </div>
+
+        <div class="warning">
+            <strong>💡 Для полной версии:</strong><br>
+            Используйте Android Studio или Xcode для мобильной версии с полным функционалом
         </div>
     </div>
-    <script src="http://localhost:8081/index.bundle?platform=web&dev=true&minify=false"></script>
+
+    <script>
+        function tryOpenApp() {
+            // Пытаемся открыть приложение в новой вкладке
+            window.open('http://localhost:8081', '_blank');
+
+            // Также показываем инструкции
+            alert('Откройте: http://localhost:8081 в новой вкладке браузера');
+        }
+
+        // Автоматическая проверка статуса Metro
+        setInterval(() => {
+            fetch('http://localhost:8081/status')
+                .then(() => {
+                    document.querySelector('.status').innerHTML = '<strong>Статус:</strong> ✅ Metro Bundler работает';
+                })
+                .catch(() => {
+                    document.querySelector('.status').innerHTML = '<strong>Статус:</strong> ❌ Metro Bundler не отвечает';
+                });
+        }, 5000);
+    </script>
 </body>
 </html>
