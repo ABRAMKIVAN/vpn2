@@ -15,6 +15,9 @@ import { SpeedDisplay } from '../components/SpeedDisplay';
 import { SettingsPanel } from '../components/SettingsPanel';
 import { NotificationCenter } from '../components/NotificationCenter';
 import { ServerList } from '../components/ServerList';
+import { ConnectionStatusCard } from '../components/ConnectionStatus';
+import { QuickActions } from '../components/QuickActions';
+import { UsageStats } from '../components/UsageStats';
 import { vpnService } from '../services/vpnService';
 import { Server } from '../types/server';
 
@@ -36,6 +39,15 @@ export const MainScreen: React.FC = () => {
   const [autoProtocolEnabled, setAutoProtocolEnabled] = useState(false);
   const [notifications, setNotifications] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [connectionTime, setConnectionTime] = useState('00:00:00');
+
+  // Mock usage stats
+  const usageStats = {
+    totalData: '1.2 GB',
+    sessionData: '245 MB',
+    sessionTime: connectionTime,
+    savedData: '89%',
+  };
 
   // Initialize VPN service and load servers
   useEffect(() => {
@@ -118,6 +130,70 @@ export const MainScreen: React.FC = () => {
     });
   }, [selectedProtocol, killSwitchEnabled, dnsProtectionEnabled, autoProtocolEnabled]);
 
+  // Connection timer
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (connectionState.isConnected) {
+      let seconds = 0;
+      interval = setInterval(() => {
+        seconds++;
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        setConnectionTime(
+          `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+        );
+      }, 1000);
+    } else {
+      setConnectionTime('00:00:00');
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [connectionState.isConnected]);
+
+  // Quick actions
+  const quickActions = [
+    {
+      id: 'speed-test',
+      icon: '⚡',
+      label: 'Тест скорости',
+      onPress: () => addNotification('Запуск теста скорости...'),
+    },
+    {
+      id: 'kill-switch',
+      icon: killSwitchEnabled ? '🛡️' : '⚠️',
+      label: killSwitchEnabled ? 'Kill Switch ON' : 'Kill Switch OFF',
+      onPress: () => setKillSwitchEnabled(!killSwitchEnabled),
+      badge: killSwitchEnabled ? '' : '!',
+    },
+    {
+      id: 'servers',
+      icon: '🌍',
+      label: 'Серверы',
+      onPress: () => addNotification('Открытие списка серверов...'),
+    },
+    {
+      id: 'settings',
+      icon: '⚙️',
+      label: 'Настройки',
+      onPress: () => addNotification('Открытие настроек...'),
+    },
+    {
+      id: 'support',
+      icon: '💬',
+      label: 'Поддержка',
+      onPress: () => addNotification('Связь с поддержкой...'),
+    },
+    {
+      id: 'stats',
+      icon: '📊',
+      label: 'Статистика',
+      onPress: () => addNotification('Просмотр статистики...'),
+    },
+  ];
+
   // Determine connection status for components
   const getConnectionStatus = (): ConnectionStatus => {
     if (connectionState.isConnecting) return 'connecting';
@@ -141,18 +217,15 @@ export const MainScreen: React.FC = () => {
         <Text style={styles.subtitle}>Fast • Secure • Private</Text>
       </View>
 
-      {/* Connection Status */}
-      <View style={styles.statusContainer}>
-        <View style={[styles.statusIndicator, { backgroundColor: getConnectionStatusColor(theme, getConnectionStatus()) }]} />
-        <Text style={styles.statusText}>
-          {getConnectionStatus().charAt(0).toUpperCase() + getConnectionStatus().slice(1)}
-        </Text>
-        {connectionState.currentServer && (
-          <Text style={styles.serverText}>
-            {connectionState.currentServer.city}, {connectionState.currentServer.country}
-          </Text>
-        )}
-      </View>
+      {/* Connection Status Card */}
+      <ConnectionStatusCard
+        status={getConnectionStatus()}
+        serverName={connectionState.currentServer ? `${connectionState.currentServer.city}, ${connectionState.currentServer.country}` : undefined}
+        protocol={selectedProtocol}
+        ipAddress={connectionState.ipAddress}
+        connectionTime={connectionTime}
+        style={styles.connectionStatusCard}
+      />
 
       {/* Connection Button */}
       <ConnectionButton
@@ -167,6 +240,21 @@ export const MainScreen: React.FC = () => {
         uploadSpeed={connectionState.uploadSpeed}
         ipAddress={connectionState.ipAddress}
         style={styles.speedDisplay}
+      />
+
+      {/* Quick Actions */}
+      <QuickActions
+        actions={quickActions}
+        style={styles.quickActions}
+      />
+
+      {/* Usage Stats */}
+      <UsageStats
+        totalData={usageStats.totalData}
+        sessionData={usageStats.sessionData}
+        sessionTime={usageStats.sessionTime}
+        savedData={usageStats.savedData}
+        style={styles.usageStats}
       />
 
       {/* Country Selection */}
@@ -276,10 +364,19 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     color: colors.textSecondary,
     fontWeight: '400',
   },
+  connectionStatusCard: {
+    marginBottom: 32,
+  },
   connectionButton: {
     marginBottom: 32,
   },
   speedDisplay: {
+    marginBottom: 32,
+  },
+  quickActions: {
+    marginBottom: 32,
+  },
+  usageStats: {
     marginBottom: 32,
   },
   countrySelector: {

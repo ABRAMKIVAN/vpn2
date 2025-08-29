@@ -27,21 +27,39 @@ interface SettingsPanelProps {
   style?: ViewStyle;
 }
 
-const PROTOCOLS: Array<{ key: ProtocolType; label: string; description: string }> = [
+const PROTOCOLS: Array<{
+  key: ProtocolType;
+  label: string;
+  description: string;
+  speed: string;
+  security: string;
+  icon: string;
+  recommended?: boolean;
+}> = [
   {
     key: 'wireguard',
     label: 'WireGuard',
-    description: 'Fastest protocol, maximum speed',
+    description: 'Самый быстрый протокол для максимальной скорости',
+    speed: '⚡ Максимальная',
+    security: '🔒 Высокая',
+    icon: '🚀',
+    recommended: true,
   },
   {
     key: 'shadowsocks',
     label: 'ShadowSocks',
-    description: 'Obfuscated, bypasses restrictions',
+    description: 'Обфускация трафика, обход ограничений',
+    speed: '⚡ Высокая',
+    security: '🛡️ Средняя',
+    icon: '🎭',
   },
   {
     key: 'vless',
-    label: 'VLESS+Reality',
-    description: 'Anti-detection, advanced obfuscation',
+    label: 'VLESS Reality',
+    description: 'Продвинутая маскировка, анти-детекция',
+    speed: '⚡ Средняя',
+    security: '🔐 Максимальная',
+    icon: '👻',
   },
 ];
 
@@ -67,6 +85,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
     setProtocolModalVisible(false);
   };
 
+  const getProtocolIcon = (protocol: ProtocolType) => {
+    return PROTOCOLS.find(p => p.key === protocol)?.icon || '🔧';
+  };
+
   const renderProtocolItem = ({ item }: { item: typeof PROTOCOLS[0] }) => (
     <TouchableOpacity
       style={[
@@ -75,15 +97,39 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
       ]}
       onPress={() => handleProtocolSelect(item.key)}
     >
-      <View style={styles.protocolInfo}>
-        <Text style={styles.protocolLabel}>{item.label}</Text>
-        <Text style={styles.protocolDescription}>{item.description}</Text>
-      </View>
-      {selectedProtocol === item.key && (
-        <View style={styles.selectedIndicator}>
-          <Text style={styles.checkmark}>✓</Text>
+      <View style={styles.protocolHeader}>
+        <View style={styles.protocolIconContainer}>
+          <Text style={styles.protocolIcon}>{item.icon}</Text>
         </View>
-      )}
+        <View style={styles.protocolMainInfo}>
+          <View style={styles.protocolTitleRow}>
+            <Text style={styles.protocolLabel}>{item.label}</Text>
+            {item.recommended && (
+              <View style={styles.recommendedBadge}>
+                <Text style={styles.recommendedText}>Рекомендовано</Text>
+              </View>
+            )}
+          </View>
+          <Text style={styles.protocolDescription}>{item.description}</Text>
+        </View>
+        {selectedProtocol === item.key && (
+          <View style={styles.selectedIndicator}>
+            <Text style={styles.checkmark}>✓</Text>
+          </View>
+        )}
+      </View>
+
+      <View style={styles.protocolStats}>
+        <View style={styles.statItem}>
+          <Text style={styles.statLabel}>Скорость</Text>
+          <Text style={styles.statValue}>{item.speed}</Text>
+        </View>
+        <View style={styles.statDivider} />
+        <View style={styles.statItem}>
+          <Text style={styles.statLabel}>Безопасность</Text>
+          <Text style={styles.statValue}>{item.security}</Text>
+        </View>
+      </View>
     </TouchableOpacity>
   );
 
@@ -128,12 +174,15 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
           onPress={() => setProtocolModalVisible(true)}
         >
           <View style={styles.selectedProtocol}>
-            <Text style={styles.selectedProtocolLabel}>
-              {selectedProtocolData?.label}
-            </Text>
-            <Text style={styles.selectedProtocolDesc}>
-              {selectedProtocolData?.description}
-            </Text>
+            <Text style={styles.protocolIconSmall}>{getProtocolIcon(selectedProtocol)}</Text>
+            <View style={styles.protocolTextContainer}>
+              <Text style={styles.selectedProtocolLabel}>
+                {selectedProtocolData?.label}
+              </Text>
+              <Text style={styles.selectedProtocolDesc}>
+                {selectedProtocolData?.description}
+              </Text>
+            </View>
           </View>
           <Text style={styles.dropdownArrow}>▼</Text>
         </TouchableOpacity>
@@ -226,7 +275,7 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
   protocolSelector: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
+    padding: 16,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: colors.border,
@@ -234,21 +283,31 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
   },
   selectedProtocol: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  protocolIconSmall: {
+    fontSize: 20,
+    marginRight: 12,
+  },
+  protocolTextContainer: {
+    flex: 1,
   },
   selectedProtocolLabel: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '500',
     color: colors.text,
     marginBottom: 2,
   },
   selectedProtocolDesc: {
     fontSize: 12,
     color: colors.textSecondary,
+    lineHeight: 16,
   },
   dropdownArrow: {
     fontSize: 14,
     color: colors.textSecondary,
-    marginLeft: 10,
+    marginLeft: 12,
   },
   settingItem: {
     flexDirection: 'row',
@@ -317,27 +376,94 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     maxHeight: 300,
   },
   protocolItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.borderLight,
+    padding: 20,
+    borderRadius: 16,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    backgroundColor: colors.surfaceSecondary,
   },
   selectedProtocolItem: {
+    borderColor: colors.primary,
     backgroundColor: colors.primaryLight,
   },
-  protocolInfo: {
+  protocolHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 16,
+  },
+  protocolIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 12,
+    backgroundColor: colors.surface,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
+  protocolIcon: {
+    fontSize: 24,
+  },
+  protocolMainInfo: {
     flex: 1,
   },
+  protocolTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
   protocolLabel: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     color: colors.text,
-    marginBottom: 2,
+  },
+  recommendedBadge: {
+    backgroundColor: colors.success,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 8,
+  },
+  recommendedText: {
+    color: colors.surface,
+    fontSize: 10,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   protocolDescription: {
-    fontSize: 12,
+    fontSize: 14,
     color: colors.textSecondary,
+    lineHeight: 20,
+  },
+  protocolStats: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: colors.borderLight,
+  },
+  statItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  statLabel: {
+    fontSize: 11,
+    color: colors.textTertiary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 4,
+  },
+  statValue: {
+    fontSize: 13,
+    color: colors.text,
+    fontWeight: '500',
+  },
+  statDivider: {
+    width: 1,
+    height: 32,
+    backgroundColor: colors.border,
+    marginHorizontal: 12,
   },
   selectedIndicator: {
     width: 24,
@@ -346,9 +472,10 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: 12,
   },
   checkmark: {
-    color: colors.text,
+    color: colors.surface,
     fontSize: 14,
     fontWeight: 'bold',
   },

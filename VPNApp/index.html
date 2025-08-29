@@ -229,6 +229,43 @@
             color: #9aa0a6;
         }
 
+        .protocol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .protocol-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .protocol-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .protocol-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .protocol-name {
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .protocol-speed {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
         .connect-button {
             width: 100%;
             background: var(--google-blue);
@@ -333,6 +370,21 @@
             color: #9aa0a6;
         }
 
+        .protocols-section {
+            margin-bottom: 32px;
+        }
+
+        .protocols-section h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: #202124;
+        }
+
+        .nothing-theme .protocols-section h3 {
+            color: white;
+        }
+
         .footer {
             text-align: center;
             margin-top: 24px;
@@ -383,11 +435,32 @@
             </div>
             <div class="feature-item">
                 <div class="feature-icon">🛡️</div>
-                <div class="feature-text">WireGuard</div>
+                <div class="feature-text">Kill Switch</div>
             </div>
             <div class="feature-item">
                 <div class="feature-icon">🎨</div>
                 <div class="feature-text">Две темы</div>
+            </div>
+        </div>
+
+        <div class="protocols-section">
+            <h3>🔧 Поддерживаемые протоколы</h3>
+            <div class="protocol-grid">
+                <div class="protocol-item">
+                    <div class="protocol-icon">🚀</div>
+                    <div class="protocol-name">WireGuard</div>
+                    <div class="protocol-speed">⚡ Максимальная</div>
+                </div>
+                <div class="protocol-item">
+                    <div class="protocol-icon">🎭</div>
+                    <div class="protocol-name">ShadowSocks</div>
+                    <div class="protocol-speed">⚡ Высокая</div>
+                </div>
+                <div class="protocol-item">
+                    <div class="protocol-icon">👻</div>
+                    <div class="protocol-name">VLESS Reality</div>
+                    <div class="protocol-speed">🔐 Максимальная</div>
+                </div>
             </div>
         </div>
 
