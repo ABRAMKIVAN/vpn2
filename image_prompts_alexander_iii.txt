@@ -1,0 +1,128 @@
+# ПРОМПТЫ ДЛЯ ИЗОБРАЖЕНИЙ: "ИМПЕРАТОР, КОТОРЫЙ ПРИПОДНЯЛ ПОЕЗД"
+
+## ОБЩИЕ РЕКОМЕНДАЦИИ ПО СТИЛЮ:
+- **Стиль:** Реалистичный, исторически точный
+- **Качество:** Высокое разрешение, детализированное
+- **Цветовая палитра:** Приглушенные тона XIX века, сепия для архивных кадров
+- **Освещение:** Драматическое, контрастное
+- **Композиция:** Кинематографическая, эмоциональная
+
+---
+
+## ПРОМПТЫ ДЛЯ ИЗОБРАЖЕНИЙ (25 штук)
+
+### 1. ПОРТРЕТ АЛЕКСАНДРА III
+**Промпт:** "Portrait of Russian Emperor Alexander III, 1880s, formal military uniform, strong facial features, imposing figure, oil painting style, royal portrait, detailed facial expression, regal bearing, historical accuracy"
+
+### 2. ИМПЕРАТОРСКАЯ СЕМЬЯ
+**Промпт:** "Russian Imperial Family 1888, Emperor Alexander III with wife Maria Feodorovna and children Nicholas, George, Xenia, Michael, formal family portrait, royal court setting, elegant clothing, warm family atmosphere"
+
+### 3. ИМПЕРАТОРСКИЙ ПОЕЗД
+**Промпт:** "Luxury imperial train 1880s Russia, 15 carriages, ornate exterior, royal crests, steam locomotive, elegant design, historical railway, opulent transportation, detailed craftsmanship"
+
+### 4. ВНУТРЕННОСТЬ ВАГОНА-СТОЛОВОЙ
+**Промпт:** "Interior of imperial dining car 1880s, elegant dining room, crystal chandeliers, silk wallpaper, mahogany furniture, royal family dining, luxurious train interior, historical accuracy"
+
+### 5. КАРТА МАРШРУТА
+**Промпт:** "Map of Russian Empire 1888, railway route from Crimea to St Petersburg, highlighted path, Borki station marked, historical map style, detailed geography, vintage cartography"
+
+### 6. МОМЕНТ КРУШЕНИЯ
+**Промпт:** "Train derailment 1888, dramatic crash scene, carriages off tracks, smoke and debris, chaotic destruction, historical railway accident, intense action, realistic disaster"
+
+### 7. РАЗРУШЕННЫЙ ВАГОН-СТОЛОВАЯ
+**Промпт:** "Destroyed dining car after train crash, collapsed roof, broken walls, scattered debris, family trapped inside, dramatic lighting, historical disaster scene"
+
+### 8. АЛЕКСАНДР III ПОДНИМАЕТ КРЫШУ
+**Промпт:** "Emperor Alexander III lifting collapsed train roof, incredible strength, heroic pose, family escaping underneath, dramatic rescue scene, historical heroism, intense emotion"
+
+### 9. СЕМЬЯ ВЫБИРАЕТСЯ ИЗ-ПОД ЗАВАЛОВ
+**Промпт:** "Imperial family escaping from train wreckage, children crying, Maria Feodorovna helping, emotional rescue scene, survival moment, family safety, dramatic lighting"
+
+### 10. ИМПЕРАТРИЦА ПЕРЕВЯЗЫВАЕТ РАНЕНЫХ
+**Промпт:** "Empress Maria Feodorovna bandaging wounded passengers, torn dress, caring expression, medical aid, humanitarian act, royal compassion, historical scene"
+
+### 11. МЕСТО КАТАСТРОФЫ НА СЛЕДУЮЩИЙ ДЕНЬ
+**Промпт:** "Train crash site next day, investigators examining wreckage, scattered debris, damaged tracks, official investigation, historical disaster aftermath, detailed scene"
+
+### 12. СЛЕДОВАТЕЛИ НА МЕСТЕ
+**Промпт:** "Railway investigators at crash site 1888, officials examining tracks, taking measurements, serious expressions, historical investigation, professional documentation"
+
+### 13. ПОРТРЕТ СЕРГЕЯ ВИТТЕ
+**Пromпт:** "Portrait of Sergei Witte, Russian railway administrator, 1880s, formal attire, intelligent expression, historical figure, professional appearance, detailed facial features"
+
+### 14. МИНИСТР ПОСЬЕТ
+**Промпт:** "Portrait of Konstantin Posyet, Russian Minister of Railways, 1880s, official uniform, stern expression, historical government figure, detailed portrait"
+
+### 15. ГАЗЕТНАЯ СТАТЬЯ О КАТАСТРОФЕ
+**Промпт:** "Newspaper article about train crash 1888, Russian text, dramatic headline, historical newspaper, vintage typography, news report style, aged paper texture"
+
+### 16. ПАМЯТНАЯ МЕДАЛЬ
+**Промпт:** "Commemorative medal for imperial family rescue 1888, bronze medal, royal crest, inscription, historical artifact, detailed craftsmanship, vintage metal"
+
+### 17. ЧАСОВНЯ НЕРУКОТВОРНОГО СПАСА
+**Промпт:** "Chapel of the Savior Not Made by Hands at crash site, Russian Orthodox church, memorial building, historical architecture, solemn atmosphere, religious significance"
+
+### 18. СОВРЕМЕННЫЙ ПАМЯТНИК
+**Промпт:** "Modern memorial at Borki train crash site, monument to victims, historical marker, peaceful setting, remembrance, contemporary photography style"
+
+### 19. АЛЕКСАНДР III НА СМЕРТНОМ ОДРЕ
+**Промпт:** "Emperor Alexander III on deathbed 1894, aged appearance, family around him, emotional scene, historical moment, final days, solemn atmosphere"
+
+### 20. СЕМЕЙНАЯ ФОТОГРАФИЯ ПОСЛЕ КАТАСТРОФЫ
+**Промпт:** "Imperial family photo after train crash, survivors together, emotional reunion, historical photograph, family bond, resilience, vintage photography style"
+
+### 21. ЖЕЛЕЗНОДОРОЖНЫЕ РАБОЧИЕ
+**Промпт:** "Railway workers 1880s Russia, repairing tracks, manual labor, historical workers, industrial scene, detailed period clothing, authentic setting"
+
+### 22. СХЕМА РАССЛЕДОВАНИЯ
+**Промпт:** "Technical diagram of train crash investigation, railway tracks, derailment point, measurements, official document, historical accuracy, detailed engineering drawing"
+
+### 23. РЕКОНСТРУКЦИЯ СЦЕНЫ СПАСЕНИЯ
+**Промпт:** "Historical reconstruction of rescue scene, actors portraying imperial family, dramatic reenactment, period costumes, emotional intensity, cinematic quality"
+
+### 24. ВИД НА ИМПЕРАТОРСКИЙ ПОЕЗД В ДВИЖЕНИИ
+**Промпт:** "Imperial train in motion, steam locomotive, elegant carriages, countryside background, historical railway, majestic transportation, period atmosphere"
+
+### 25. ФИНАЛЬНЫЙ ПОРТРЕТ АЛЕКСАНДРА III
+**Промпт:** "Final portrait of Emperor Alexander III, mature face, wise expression, royal dignity, historical legacy, solemn portrait, artistic rendering"
+
+---
+
+## ДОПОЛНИТЕЛЬНЫЕ ВИЗУАЛЬНЫЕ ЭЛЕМЕНТЫ
+
+### АНИМАЦИОННЫЕ СЦЕНЫ:
+- **Крушение поезда:** 3D анимация с реалистичной физикой
+- **Поднятие крыши:** Плавная анимация демонстрации силы
+- **Спасение семьи:** Эмоциональная анимация выхода из-под завалов
+
+### ГРАФИЧЕСКИЕ ЭЛЕМЕНТЫ:
+- **Карты:** Интерактивные карты маршрута
+- **Схемы:** Технические схемы поезда и места крушения
+- **Таймлайн:** Хронология событий
+- **Статистика:** Инфографика с данными о катастрофе
+
+### ЦВЕТОВАЯ СХЕМА:
+- **Введение:** Темные, драматические тона
+- **Исторический контекст:** Теплые, ностальгические оттенки
+- **Катастрофа:** Резкие, контрастные цвета
+- **Спасение:** Светлые, надежные тона
+- **Заключение:** Торжественные, благородные цвета
+
+---
+
+## ТЕХНИЧЕСКИЕ ТРЕБОВАНИЯ
+
+### РАЗРЕШЕНИЕ:
+- **Основные изображения:** 1920x1080 (Full HD)
+- **Портреты:** 1080x1080 (квадратный формат)
+- **Широкоформатные сцены:** 2560x1440 (2K)
+
+### ФОРМАТЫ:
+- **Статичные изображения:** PNG с прозрачностью
+- **Анимации:** MP4, 30 FPS
+- **Графика:** SVG для масштабируемости
+
+### ОПТИМИЗАЦИЯ:
+- **Сжатие:** Оптимизировано для веб
+- **Загрузка:** Прогрессивная загрузка
+- **Адаптивность:** Поддержка разных разрешений экрана
