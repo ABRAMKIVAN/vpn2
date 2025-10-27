@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔒 SecureVPN - Простой запуск</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .primary-btn {
+            background: linear-gradient(45deg, #1a73e8, #4285f4);
+            color: white;
+            border: none;
+        }
+
+        .status {
+            background: rgba(0, 123, 255, 0.2);
+            border: 1px solid rgba(0, 123, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .warning {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .protocols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .protocol-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .protocol-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .protocol-name {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .protocol-speed {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .action-btn {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🔒</div>
+        <h1 class="title">SecureVPN</h1>
+        <p class="subtitle">Быстрое • Безопасное • Приватное</p>
+
+        <div class="status">
+            <strong>🚀 Приложение готово к запуску!</strong><br>
+            WireGuard • ShadowSocks • VLESS Reality
+        </div>
+
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-text">500 Mbps скорость</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🌍</div>
+                <div class="feature-text">8 серверов</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-text">Kill Switch</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎨</div>
+                <div class="feature-text">Две темы</div>
+            </div>
+        </div>
+
+        <div class="protocols">
+            <div class="protocol-item">
+                <div class="protocol-icon">🚀</div>
+                <div class="protocol-name">WireGuard</div>
+                <div class="protocol-speed">⚡ Максимальная</div>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-icon">🎭</div>
+                <div class="protocol-name">ShadowSocks</div>
+                <div class="protocol-speed">⚡ Высокая</div>
+            </div>
+            <div class="protocol-item">
+                <div class="protocol-icon">👻</div>
+                <div class="protocol-name">VLESS Reality</div>
+                <div class="protocol-speed">🔐 Максимальная</div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="action-btn primary-btn" onclick="startApp()">
+                🚀 Запустить приложение
+            </button>
+            <button class="action-btn" onclick="openMetro()">
+                🔧 Metro Bundler
+            </button>
+            <button class="action-btn" onclick="openTerminal()">
+                💻 Терминал
+            </button>
+        </div>
+
+        <div class="warning">
+            <strong>💡 Инструкция:</strong><br>
+            1. Нажмите "Запустить приложение"<br>
+            2. Подождите загрузки<br>
+            3. Наслаждайтесь VPN!
+        </div>
+    </div>
+
+    <script>
+        function startApp() {
+            // Пытаемся открыть приложение
+            const appWindow = window.open('http://localhost:8081', '_blank', 'width=400,height=800');
+
+            if (!appWindow) {
+                alert('Не удалось открыть приложение. Возможно, блокируется всплывающими окнами.');
+                // Альтернативно, перенаправляем в текущем окне
+                window.location.href = 'http://localhost:8081';
+            } else {
+                alert('Приложение запущено в новом окне! Если окно не открылось, проверьте настройки браузера.');
+            }
+        }
+
+        function openMetro() {
+            window.open('http://localhost:8081', '_blank');
+        }
+
+        function openTerminal() {
+            alert('Для запуска из терминала выполните:\n\ncd /workspace/VPNApp\nnpx react-native start --reset-cache');
+        }
+
+        // Проверяем статус Metro bundler каждые 5 секунд
+        setInterval(() => {
+            fetch('http://localhost:8081/status', { mode: 'no-cors' })
+                .then(() => {
+                    document.querySelector('.status').innerHTML = '<strong>✅ Metro Bundler активен!</strong><br>Приложение готово к работе';
+                    document.querySelector('.status').style.borderColor = '#34a853';
+                    document.querySelector('.status').style.background = 'rgba(52, 168, 83, 0.2)';
+                })
+                .catch(() => {
+                    document.querySelector('.status').innerHTML = '<strong>⚠️ Metro Bundler не запущен</strong><br>Запустите: npx react-native start';
+                    document.querySelector('.status').style.borderColor = '#ea4335';
+                    document.querySelector('.status').style.background = 'rgba(234, 67, 53, 0.2)';
+                });
+        }, 5000);
+    </script>
+</body>
+</html>
